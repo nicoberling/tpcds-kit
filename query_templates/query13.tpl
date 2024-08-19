@@ -37,10 +37,10 @@
  define STATE= ulist(dist(fips_county, 3, 1), 9);
  
 
- select avg(ss_quantity)
-       ,avg(ss_ext_sales_price)
-       ,avg(ss_ext_wholesale_cost)
-       ,sum(ss_ext_wholesale_cost)
+ select avg(ss_quantity) as avg_ss_quantity
+       ,avg(ss_ext_sales_price) as avg_ss_ext_sales_price
+       ,avg(ss_ext_wholesale_cost) as avg_ss_ext_wholesale_cost
+       ,sum(ss_ext_wholesale_cost) as sum_ss_ext_wholesale_cost
  from store_sales
      ,store
      ,customer_demographics

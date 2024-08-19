@@ -51,8 +51,8 @@ and d_date_sk = cs_sold_date_sk
 and cs_ext_discount_amt  
      > ( 
          select 
-            1.3 * avg(cs_ext_discount_amt) 
-         from 
+            1.3 * avg(cs_ext_discount_amt) as avg_cs_ext_discount_amt
+         from
             catalog_sales 
            ,date_dim
          where 

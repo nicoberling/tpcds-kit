@@ -67,7 +67,7 @@
   *
 from
  max_store_sales))
- [_LIMITA] select [_LIMITB] sum(sales)
+ [_LIMITA] select [_LIMITB] sum(sales) as sum_sales
  from (select cs_quantity*cs_list_price sales
        from catalog_sales
            ,date_dim 

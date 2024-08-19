@@ -37,7 +37,7 @@
  define _LIMIT=100;
  
  [_LIMITA] select [_LIMITB] ca_zip
-       ,sum(cs_sales_price)
+       ,sum(cs_sales_price) as sum_cs_sales_price
  from catalog_sales
      ,customer
      ,customer_address

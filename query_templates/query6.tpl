@@ -52,8 +52,8 @@
                where d_year = [YEAR]
  	        and d_moy = [MONTH] )
  	and i.i_current_price > 1.2 * 
-             (select avg(j.i_current_price) 
- 	     from item j 
+             (select avg(j.i_current_price) as avg_i_current_price
+ 	     from item j
  	     where j.i_category = i.i_category)
  group by a.ca_state
  having count(*) >= 10

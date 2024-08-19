@@ -53,8 +53,8 @@ and d_date_sk = ws_sold_date_sk
 and ws_ext_discount_amt  
      > ( 
          SELECT 
-            1.3 * avg(ws_ext_discount_amt) 
-         FROM 
+            1.3 * avg(ws_ext_discount_amt) as avg_ws_ext_discount_amt
+         FROM
             web_sales 
            ,date_dim
          WHERE 

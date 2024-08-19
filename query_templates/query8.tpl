@@ -38,7 +38,7 @@
  define _LIMIT=100;
 
  [_LIMITA] select [_LIMITB] s_store_name
-      ,sum(ss_net_profit)
+      ,sum(ss_net_profit) as sum_ss_net_profit
  from store_sales
      ,date_dim
      ,store,
