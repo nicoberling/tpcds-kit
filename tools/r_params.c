@@ -46,7 +46,7 @@
 #include "tdefs.h"
 #include "release.h"
 
-#define PARAM_MAX_LEN	80
+#define PARAM_MAX_LEN   120
 
 #ifndef TEST
 extern option_t options[];
@@ -344,7 +344,7 @@ init_params(void)
 	{
 		params[options[i].index] = (char *)malloc(PARAM_MAX_LEN * sizeof(char));
 		MALLOC_CHECK(params[options[i].index]);
-		strncpy(params[options[i].index], options[i].dflt, 80);
+		strncpy(params[options[i].index], options[i].dflt, PARAM_MAX_LEN);
 		if (*options[i].dflt)
 			options[i].flags |= OPT_DFLT;
 	}
@@ -502,7 +502,7 @@ usage (char *param_name, char *msg)
 	fprintf (stderr, "Copyright %s %s\n", COPYRIGHT, C_DATES);
 
 	if (msg != NULL)
-		printf("\nERROR: %s\n\n", msg);
+		printf("\nERROR: %s (%s)\n\n", msg, param_name);
 	
 	printf("\n\nUSAGE: %s [options]\n", get_str("PROG"));
 	printf("\nNote: When defined in a parameter file (using -p), parmeters should\n");
@@ -510,8 +510,9 @@ usage (char *param_name, char *msg)
 	printf("line, using a form of '%cparam [optional argument]'\n", 
 		OPTION_START);
 	printf("Unique anchored substrings of options are also recognized, and \n");
-	printf("case is ignored, so '%csc' is equivalent to '%cSCALE'\n\n",
+	printf("case is ignored, so '%csc' is equivalent to '%cSCALE'\n",
 		OPTION_START, OPTION_START);
+	printf("String parameters are limited to %d characters\n\n", PARAM_MAX_LEN);
 	printf("General Options\n===============\n");
 	print_options(options, 0);
 	printf("\n");
@@ -606,6 +607,8 @@ set_option(char *name, char *param)
 		if (o->action && strlen(param))
 			if (o->action(o->name, param) < 0)
 				usage(o->name, "Cannot process option");
+		if (strlen(param) > PARAM_MAX_LEN)
+            usage(o->name, "String parameter too long");
 		set_str(name, param);
 		res = 2;
 		break;
